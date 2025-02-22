@@ -79,15 +79,16 @@ const page = () => {
         }
     }
 
-    const onSwipe = (direction: string) => {
-        if (direction === 'right') {
-            onSwipeRight()
-        } else if (direction === 'left') {
-            onSwipeLeft()
-        }
-    }
+    // const onSwipe = (direction: string) => {
+    //     if (direction === 'right') {
+    //         onSwipeRight()
+    //     } else if (direction === 'left') {
+    //         onSwipeLeft()
+    //     }
+    // }
 
     const onSwipeRequirementFulfilled = (direction: string) => {
+        console.log(direction);
         if (direction === 'right') {
             onSwipeRight()
         } else if (direction === 'left') {
@@ -109,7 +110,7 @@ const page = () => {
         <main className='h-80 gap-y-4 flex flex-col'>
             <TinderCard
                 ref={cardRef}
-                onSwipe={onSwipe}
+                // onSwipe={onSwipe}
                 onSwipeRequirementFulfilled={onSwipeRequirementFulfilled}
                 onCardLeftScreen={() => onCardLeftScreen('fooBar')}
                 preventSwipe={['up', 'down']}
