@@ -60,6 +60,7 @@ export async function GET(req) {
       return NextResponse.json({ error: "No se encontró ninguna imagen" }, { status: 404 });
     }
 
+    console.log(imageUrl)
     
     return NextResponse.json({ imageUrl });
 

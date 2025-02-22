@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import AWS from 'aws-sdk';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -46,7 +47,8 @@ export async function POST(request: NextRequest) {
             const data = await response.json()
             console.log('Upload successful:', data)
 
-            const productLinks = data.map((product: { link: string }) => product.link);
+            // const productLinks = data.map((product: { link: string }) => product.link);
+            const productLinks = ["https://www.zara.com/es/es/jeans-slim-cropped-fit-p04551402.html?v1=433643651&v2=2443335", "https://www.zara.com/es/es/trench-largo-water-repellent-p04315500.html?v1=425252061&v2=2443335", "https://www.massimodutti.com/es/parka-capucha-mezcla-algodon-l03477514?pelement=45813620", "https://www.massimodutti.com/es/chaqueta-algodon-detalle-cuello-piel-l03483518?pelement=48639308", "https://www.bershka.com/es/camiseta-manga-corta-cropped-c0p175233157.html?colorId=250"]
 
             const photos = await Promise.all(
                 productLinks.map(async (url: any) => {
@@ -82,4 +84,34 @@ export async function POST(request: NextRequest) {
             { status: 500 }
         );
     }
+}
+
+export async function GET(req: NextApiRequest, res: NextApiResponse) {
+  console.log(req)
+  const { searchParams } = new URL(req.url!, `http://${req.headers.host}`);
+  const imageURL = searchParams.get("imageUrl");
+
+  if(!imageURL) {
+    return NextResponse.json(
+      { message: "bad request" },
+      { status: 400 }
+    );
+    
+  }
+  const url =
+    `https://api-sandbox.inditex.com/pubvsearch-sandbox/products?image=${imageURL}`;
+  const token = process.env.PUBLIC_INDITEX_TOKEN;
+
+  try {
+    // Execute curl request
+   
+
+
+    // Parse and return JSON response
+    const data = JSON.parse(stdout);
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error("Request failed:", error);
+    return NextResponse.json({ error: "Failed to fetch data" });
+  }
 }
