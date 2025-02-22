@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { NextApiRequest, NextApiResponse } from "next";
 
 import { exec } from "child_process";
 import { promisify } from "util";
@@ -9,7 +8,7 @@ const execPromise = promisify(exec);
 import { createClient } from "@/utils/supabase/server";
 import { makeAuthenticatedRequest } from "@/utils/tokenManager";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: any, res: any) {
   const supabase = await createClient();
   const userId = (await supabase.auth.getUser()).data.user?.id;
   const { searchParams } = new URL(req.url!, `http://${req.headers.host}`);
@@ -21,7 +20,11 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     const url = `${process.env.PUBLIC_INDITEX_URL}/pubvsearch/products`;
-    const data = await makeAuthenticatedRequest(url, 'GET', `image=${imageURL}`);
+    const data = await makeAuthenticatedRequest(
+      url,
+      "GET",
+      `image=${imageURL}`
+    );
 
     console.log(data);
 
@@ -96,6 +99,9 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     return NextResponse.json(photos);
   } catch (error) {
     console.error("Error getting recommendations:", error);
-    return NextResponse.json({ error: "Failed to get recommendations" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to get recommendations" },
+      { status: 500 }
+    );
   }
 }
