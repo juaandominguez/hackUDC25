@@ -45,10 +45,10 @@ export async function GET(req: any, res: any) {
       })
     );
 
-    const may_like_data = await supabase
+    const may_like_data = (await supabase
       .from("products")
       .select("may_like")
-      .eq("user_id", userId);
+      .eq("user_id", userId)) as any;
 
     const may_like_photos_data = await supabase
       .from("products")
