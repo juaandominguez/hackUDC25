@@ -7,10 +7,18 @@ import Image from 'next/image'
 import { createClient } from '@/utils/supabase/client'
 
 const page = () => {
+    const [currentIndex, setCurrentIndex] = useState(0)
+    // Sample data array - replace with your actual data
+    const [cards] = useState([
+        { id: 1, imageUrl: stub },
+        { id: 2, imageUrl: stub },
+        { id: 3, imageUrl: stub },
+        { id: 4, imageUrl: stub },
+    ])
     const [isLiked, setIsLiked] = useState(false)
     const [isHated, setIsHated] = useState(false)
     const [isHidden, setIsHidden] = useState(false)
-    const cardRef = useRef<any>(null)
+    const cardRefs = useRef<any>(cards.map(() => null))
     const supabase = createClient()
 
     const onSwipeRight = async () => {
@@ -44,6 +52,7 @@ const page = () => {
             console.error(err)
             return
         }
+        setIsLiked(false)
 
     }
 
@@ -77,6 +86,7 @@ const page = () => {
             console.error(err)
             return
         }
+        setIsHated(false)
     }
 
     // const onSwipe = (direction: string) => {
@@ -89,7 +99,7 @@ const page = () => {
 
     const onSwipe = (direction: string) => {
         console.log(direction);
-        setIsHidden(true)
+        setCurrentIndex(prevIndex => prevIndex + 1)
         if (direction === 'right') {
             onSwipeRight()
         } else if (direction === 'left') {
@@ -102,32 +112,47 @@ const page = () => {
     }
 
     const swipe = (dir: string) => {
-        if (cardRef.current) {
-            cardRef.current.swipe(dir)
+        if (cardRefs.current[currentIndex]) {
+            cardRefs.current[currentIndex].swipe(dir)
         }
     }
 
     return (
-        <main className='h-80 gap-y-4 flex flex-col'>
-            <TinderCard
-                ref={cardRef}
-                onSwipe={onSwipe}
-                // onSwipeRequirementFulfilled={onSwipeRequirementFulfilled}
-                onCardLeftScreen={() => onCardLeftScreen('fooBar')}
-                preventSwipe={['up', 'down']}
-                className={`${isHidden ? 'hidden' : 'block'}`}
-            >
-                <Image
-                    src={stub}
-                    alt='stub'
-                    width={450}
-                    height={450}
-                    className='border border-black'
-                    style={{ userSelect: 'none' }}
-                    draggable={false}
-                />
-            </TinderCard>
-            <div className='flex flex-row justify-between w-[450px] px-16'>
+        <main className='flex flex-col items-center gap-y-8 pt-8'>
+            <div className="relative w-[450px] h-[450px] mb-48">
+                {cards.map((card, index) => (
+                    index >= currentIndex && (
+                        <div 
+                            key={card.id} 
+                            className="absolute"
+                            style={{
+                                transform: `scale(${1 - (index - currentIndex) * 0.05}) translateY(${(index - currentIndex) * -10}px)`,
+                                zIndex: cards.length - index,
+                                opacity: Math.max(1 - (index - currentIndex) * 0.2, 0.7)
+                            }}
+                        >
+                            <TinderCard
+                                ref={element => cardRefs.current[index] = element}
+                                onSwipe={onSwipe}
+                                onCardLeftScreen={() => onCardLeftScreen(card.id)}
+                                preventSwipe={['up', 'down']}
+                                className={`${index === currentIndex ? '' : 'pointer-events-none'}`}
+                            >
+                                <Image
+                                    src={card.imageUrl}
+                                    alt={`Card ${card.id}`}
+                                    width={450}
+                                    height={450}
+                                    className='border border-black'
+                                    style={{ userSelect: 'none' }}
+                                    draggable={false}
+                                />
+                            </TinderCard>
+                        </div>
+                    )
+                ))}
+            </div>
+            <div className='flex flex-row justify-between w-[450px] px-16 relative z-50'>
                 <button
                     onClick={() => swipe('left')}
                     className={`size-24 rounded-full border flex items-center justify-center ${isHated ? 'bg-red-300' : 'hover:bg-red-300'}`}
@@ -141,7 +166,7 @@ const page = () => {
                     <Heart className='size-8'></Heart>
                 </button>
             </div>
-        </main >
+        </main>
     )
 }
 
