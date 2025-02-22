@@ -26,13 +26,10 @@ export async function GET(req: any, res: any) {
       `image=${imageURL}`
     );
 
-    console.log(data);
-
     const productLinks = data.map((product: { link: string }) => product.link);
 
     const photos = await Promise.all(
       productLinks.map(async (url: any) => {
-        console.log(url);
         const scrapeResponse = await fetch(
           `${process.env.NEXT_PUBLIC_URL}/api/scrape?url=${encodeURIComponent(url)}`
         );

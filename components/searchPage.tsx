@@ -39,7 +39,6 @@ const SearchPage = () => {
       }
 
       const uploadData = await uploadResponse.json()
-      console.log("Upload successful:", uploadData)
 
       // Perform visual search
       const searchResponse = await fetch("/api/vision", {
@@ -66,7 +65,6 @@ const SearchPage = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     // Handle text search logic here
-    console.log("Searching for:", searchTerm)
   }
 
   return (

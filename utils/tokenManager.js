@@ -13,7 +13,11 @@ export const getToken = async () => {
   const now = Math.floor(Date.now() / 1000);
 
   // If the token is still valid, return the cached token
-  if (cachedToken && tokenExpirationTime && now < tokenExpirationTime - TOKEN_EXPIRY_BUFFER) {
+  if (
+    cachedToken &&
+    tokenExpirationTime &&
+    now < tokenExpirationTime - TOKEN_EXPIRY_BUFFER
+  ) {
     return cachedToken;
   }
 
@@ -35,16 +39,17 @@ const fetchNewToken = async () => {
   const CLIENT_SECRET = process.env.INDITEX_CLIENT_SECRET;
 
   if (!CLIENT_ID || !CLIENT_SECRET) {
-    throw new Error("Missing CLIENT_ID or CLIENT_SECRET in environment variables");
+    throw new Error(
+      "Missing CLIENT_ID or CLIENT_SECRET in environment variables"
+    );
   }
 
   const curlCommand = `curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36" -X POST -u "${CLIENT_ID}:${CLIENT_SECRET}" -d "grant_type=client_credentials&scope=technology.catalog.read" https://auth.inditex.com:443/openam/oauth2/itxid/itxidmp/access_token`;
 
   try {
     const { stdout, stderr } = await execPromise(curlCommand);
-    console.log("nuevo token", stdout)
-    if (stderr && stderr.trim() !== '') {
-      console.error('Stderr output:', stderr);
+    if (stderr && stderr.trim() !== "") {
+      console.error("Stderr output:", stderr);
       throw new Error(`Curl error in auth: ${stderr}`);
     }
     const data = JSON.parse(stdout);
@@ -53,7 +58,7 @@ const fetchNewToken = async () => {
       expires_in: data.expires_in,
     };
   } catch (error) {
-    console.error('Full error:', error);
+    console.error("Full error:", error);
     throw new Error(`Token request failed: ${error.message}`);
   }
 };
@@ -70,7 +75,7 @@ export const fetchProductData = async (query) => {
 
   try {
     const { stdout, stderr } = await execPromise(curlCommand);
-    if (stderr && stderr.trim() !== '') {
+    if (stderr && stderr.trim() !== "") {
       throw new Error(`Curl error: ${stderr}`);
     }
     return JSON.parse(stdout);
@@ -80,9 +85,13 @@ export const fetchProductData = async (query) => {
 };
 
 // Add new function to make authenticated API requests
-export const makeAuthenticatedRequest = async (endpoint, method = 'GET', query = '') => {
+export const makeAuthenticatedRequest = async (
+  endpoint,
+  method = "GET",
+  query = ""
+) => {
   const token = await getToken();
-  
+
   let url = endpoint;
   if (query) {
     url += `?${query}`;
@@ -94,11 +103,9 @@ export const makeAuthenticatedRequest = async (endpoint, method = 'GET', query =
     -H "Content-Type: application/json" \
     -H "User-Agent: postman/1.0" `;
 
-  console.log(curlCommand)
-
   try {
     const { stdout, stderr } = await execPromise(curlCommand);
-    if (stderr && stderr.trim() !== '') {
+    if (stderr && stderr.trim() !== "") {
       throw new Error(`Curl error: ${stderr}`);
     }
     return JSON.parse(stdout);

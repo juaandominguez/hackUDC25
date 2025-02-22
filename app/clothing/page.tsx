@@ -19,7 +19,6 @@ const ClothingPage = () => {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/products`);
         const data = await response.json();
-        console.log(data);
         if (Array.isArray(data)) {
           setAllClothes(data);
           setFilteredClothes(data);
@@ -87,9 +86,9 @@ const ClothingPage = () => {
               ))}
             </div>
           ) : (
-          <p className="text-lg font-medium text-gray-600 text-center">
-            No items found
-          </p>
+            <p className="text-lg font-medium text-gray-600 text-center">
+              No items found
+            </p>
           )}
         </div>
       </main>

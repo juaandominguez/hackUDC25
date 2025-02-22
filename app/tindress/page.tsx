@@ -47,7 +47,6 @@ const page = () => {
             console.error(error)
             return
         }
-        console.log(data)
         if (data.length === 0) {
             const { error: err } = await supabase.from('products').insert({ user_id: id, liked_urls: [cards[currentIndex].url] }).eq('user_id', id)
             if (err) {
@@ -115,7 +114,6 @@ const page = () => {
     // }
 
     const onSwipe = (direction: string) => {
-        console.log(direction);
         setCurrentIndex(prevIndex => prevIndex + 1)
         if (direction === 'right') {
             onSwipeRight()
@@ -125,7 +123,6 @@ const page = () => {
     }
 
     const onCardLeftScreen = (myIdentifier: any) => {
-        console.log(myIdentifier + ' left the screen')
     }
 
     const swipe = (dir: string) => {

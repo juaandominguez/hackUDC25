@@ -19,7 +19,6 @@ const SearchPage = () => {
     setLoading(true);
     setIsUploading(true);
     try {
-      console.log(searchTerm);
       const response = await fetch(`/api/upload?imageUrl=${searchTerm}`);
 
       if (!response.ok) {
@@ -34,7 +33,6 @@ const SearchPage = () => {
       setIsUploading(false);
       setLoading(false);
     }
-    console.log("Searching for:", searchTerm);
   };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {

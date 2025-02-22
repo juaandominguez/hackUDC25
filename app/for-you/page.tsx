@@ -29,8 +29,6 @@ const ForYouPage = () => {
           .select("may_like, may_like_photos")
           .eq("user_id", session.user.id);
 
-        console.log("Data:", data);
-
         if (error) {
           console.error("Error fetching likes:", error);
         } else {
