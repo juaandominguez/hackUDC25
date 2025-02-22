@@ -6,8 +6,9 @@ import { NextResponse } from "next/server";
 const execPromise = promisify(exec);
 
 export async function GET(req: NextApiRequest, res: NextApiResponse) {
+  const imageURL=req.body.imageUrl
   const url =
-    "https://api-sandbox.inditex.com/pubvsearch-sandbox/products?image=https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2022/07/30/16592011433654.jpg";
+    "https://api-sandbox.inditex.com/pubvsearch-sandbox/products?image=";
   const token = process.env.PUBLIC_INDITEX_TOKEN;
 
   try {
