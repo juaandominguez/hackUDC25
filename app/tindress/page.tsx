@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { createClient } from '@/utils/supabase/client'
 import Navbar from '@/components/components/navbar'
 
-const page = () => {
+const Page = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
     // Sample data array - replace with your actual data
     const [cards, setCards] = useState<{ id: any, url: any }[]>([])
@@ -35,7 +35,7 @@ const page = () => {
         }
 
         fetchTindressData()
-    }, [])
+    }, [supabase])
 
     const onSwipeRight = async () => {
         setIsLiked(true)
@@ -198,4 +198,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
