@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
             );
 
             // Format data to match ClothingCard structure
-            const formattedProducts = data.map((product: any) => ({
+            const formattedProducts = data.map((product: any, idx: number) => ({
                 id: product.id,
                 name: product.name,
                 price: {
@@ -71,10 +71,11 @@ export async function POST(request: NextRequest) {
                     }
                 },
                 link: product.link,
-                brand: product.brand
+                brand: product.brand,
+                image: products[idx].imageUrl
             }));
             
-
+            console.log(formattedProducts)
             return NextResponse.json(formattedProducts);
         } catch (error) {
             console.error('Error processing image:', error);

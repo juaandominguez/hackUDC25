@@ -24,7 +24,7 @@ const ClothingCard = ({ item }: { item: ClothingItem }) => {
     <Card className="w-64 h-[400px] shadow-lg overflow-hidden flex flex-col border border-black">
       <div className="relative w-full h-48 bg-gray-200">
         <Image
-          src="/placeholder.jpg"
+          src={item.image || "/placeholder.jpg"}
           alt={item.name}
           layout="fill"
           objectFit="cover"
