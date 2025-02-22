@@ -6,6 +6,7 @@ import Image from "next/image";
 import ClothingList from "@/components/clothingList";
 import type { ClothingItem } from "@/components/clothingCard"
 import ClothingCard from "@/components/clothingCard";
+import Navbar from "@/components/components/navbar";
 
 const ClothingPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -49,55 +50,50 @@ const ClothingPage = () => {
   }, [searchTerm, allClothes]);
 
   return (
-    <main className="container mx-auto px-4 py-8">
-<<<<<<< HEAD
-      <h1 className="text-3xl font-bold mb-6 text-center">Clothing Store</h1>
-=======
-      <ClothingList />
-    </main>
-  )
-}
->>>>>>> 6225dda (fix: improve navbar ui)
+    <>
+      <Navbar />
+      <main className="container mx-auto px-4 py-8">
 
-      {/* Search Bar */}
-      <form onSubmit={handleSearch} className="w-full flex justify-center mb-6">
-        <div className="relative flex items-center w-[400px] border-2 border-black rounded-lg">
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search for clothing by name..."
-            className="w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-0"
-            style={{ width: "350px" }}
-          />
-          <button
-            type="submit"
-            className="p-2 text-black hover:bg-black hover:text-white transition"
-          >
-            <Search className="h-5 w-5" />
-          </button>
-        </div>
-      </form>
-
-
-      {/* Display Clothing List with Filtered Results */}
-      <div className="mt-10">
-        <h2 className="text-2xl font-bold mb-4">
-          {filteredClothes.length > 0 ? "Search Results" : "All Products"}
-        </h2>
-        {filteredClothes.length > 0 ? (
-          <div className="flex flex-wrap justify-center gap-6">
-            {filteredClothes.map((item, index) => (
-              <ClothingCard key={item.id ?? `item-${index}`} item={item} />
-            ))}
+        {/* Search Bar */}
+        <form onSubmit={handleSearch} className="w-full flex justify-center mb-6">
+          <div className="relative flex items-center w-[400px] border-2 border-black rounded-lg">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search for clothing by name..."
+              className="w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-0"
+              style={{ width: "350px" }}
+            />
+            <button
+              type="submit"
+              className="p-2 text-black hover:bg-black hover:text-white transition"
+            >
+              <Search className="h-5 w-5" />
+            </button>
           </div>
-        ) : (
-        <p className="text-lg font-medium text-gray-600 text-center">
-          No items found
-        </p>
-        )}
-      </div>
-    </main>
+        </form>
+
+
+        {/* Display Clothing List with Filtered Results */}
+        <div className="mt-10">
+          <h2 className="text-2xl font-bold mb-4">
+            {filteredClothes.length > 0 ? "Search Results" : "All Products"}
+          </h2>
+          {filteredClothes.length > 0 ? (
+            <div className="flex flex-wrap justify-center gap-6">
+              {filteredClothes.map((item, index) => (
+                <ClothingCard key={item.id ?? `item-${index}`} item={item} />
+              ))}
+            </div>
+          ) : (
+          <p className="text-lg font-medium text-gray-600 text-center">
+            No items found
+          </p>
+          )}
+        </div>
+      </main>
+    </>
   );
 };
 

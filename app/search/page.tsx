@@ -52,7 +52,7 @@ const SearchPage = () => {
   };
 
   return (
-    <div>
+    <div className="w-full">
       <Navbar />
       <main className="flex flex-col items-center gap-8 p-8 max-w-2xl mx-auto bg-white text-black">
         <h1 className="text-5xl font-bold uppercase tracking-tighter z-10 relative text-center">

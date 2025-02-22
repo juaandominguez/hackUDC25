@@ -36,7 +36,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="flex-1 w-full flex flex-col items-center bg-white text-black">
+    <div className="w-full flex flex-col items-center bg-white text-black">
       <nav className="w-full flex justify-center border-b border-black h-16 bg-white mb-10">
         <div className="w-full max-w-5xl flex justify-between items-center p-4 md:px-8">
           <Link href="/" className="p-2">

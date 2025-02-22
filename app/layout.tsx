@@ -33,11 +33,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className="min-h-screen flex flex-col items-center">
-<<<<<<< HEAD
             {children}
-=======
-            <Navbar></Navbar>
->>>>>>> 6225dda (fix: improve navbar ui)
           </main>
         </ThemeProvider>
       </body>

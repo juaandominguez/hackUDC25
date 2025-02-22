@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function WelcomePage() {
   return (
-    <div>
+    <div className='w-full'>
       <Navbar/>
       <div className="min-h-screen flex flex-col items-center bg-white text-black">
       <div className="max-w-2xl text-center relative">
