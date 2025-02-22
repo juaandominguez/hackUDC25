@@ -7,8 +7,8 @@ Thank you for considering contributing to ZaraMatch! Your support and efforts he
 
 ## 🔍 Before Contributing
 Before you start contributing, please:
-- Check the [Issues](https://github.com/juaandominguez/ZaraMatch/issues) section for existing reports or discussions.
-- Look through [Discussions](https://github.com/juaandomingue/ZaraMatch/discussions) for ongoing conversations about improvements.
+- Check the [Issues](https://github.com/juaandominguez/HackUDC25/issues) section for existing reports or discussions.
+- Look through [Discussions](https://github.com/juaandomingue/HackUDC25/discussions) for ongoing conversations about improvements.
 
 ---
 
@@ -63,7 +63,7 @@ We encourage constructive conversations and collaboration!
 ---
 
 ## 🚀 Where to Start?
-- Check [Good First Issues](https://github.com/yourusername/ZaraMatch/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
-- Read through the [Documentation](https://github.com/yourusername/ZaraMatch/wiki)
+- Check [Good First Issues](https://github.com/juaandominguez/hackUDC25/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+- Read through the [Documentation](https://github.com/juaandominguez/HackUDC25/wiki)
 
 Happy coding! 🎉
