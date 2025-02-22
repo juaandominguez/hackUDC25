@@ -12,10 +12,9 @@ const ClothingPage = () => {
   const [filteredClothes, setFilteredClothes] = useState<ClothingItem[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // Fetch all clothes once
   useEffect(() => {
     const fetchClothes = async () => {
-      setLoading(true); // Start loading
+      setLoading(true);
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/products`);
         const data = await response.json();
@@ -32,14 +31,13 @@ const ClothingPage = () => {
       } catch (error) {
         console.error("Error fetching clothes:", error);
       } finally {
-        setLoading(false); // Stop loading
+        setLoading(false);
       }
     };
 
     fetchClothes();
   }, []);
 
-  // Handle search by name
   useEffect(() => {
     const filtered = allClothes.filter((item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -51,17 +49,14 @@ const ClothingPage = () => {
     <>
       <Navbar />
       <main className="container mx-auto px-4 py-8">
-
-        {/* Search Bar */}
         <form onSubmit={(e) => e.preventDefault()} className="w-full flex justify-center mb-6">
-          <div className="relative flex items-center w-[400px] border-2 border-black rounded-lg">
+          <div className="relative flex items-center w-full max-w-md border-2 border-black rounded-lg">
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search for clothing by name..."
               className="w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-0"
-              style={{ width: "350px" }}
             />
             <button
               type="submit"
@@ -72,7 +67,6 @@ const ClothingPage = () => {
           </div>
         </form>
 
-        {/* Loader when fetching data */}
         {loading && (
           <div className="flex justify-center items-center w-full mt-8">
             <Loader2 className="h-10 w-10 animate-spin text-gray-500" />
@@ -80,14 +74,13 @@ const ClothingPage = () => {
           </div>
         )}
 
-        {/* Display Clothing List with Filtered Results */}
         {!loading && (
-          <div className="mt-10">
+          <div className="mt-10 text-center">
             <h2 className="text-2xl font-bold mb-4">
               {filteredClothes.length > 0 ? "Search Results" : "All Products"}
             </h2>
             {filteredClothes.length > 0 ? (
-              <div className="flex flex-wrap justify-center gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
                 {filteredClothes.map((item, index) => (
                   <ClothingCard key={item.id ?? `item-${index}`} item={item} />
                 ))}
