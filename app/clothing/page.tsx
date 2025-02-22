@@ -1,10 +1,11 @@
-import ClothingList from '@/components/clothingList';
+import ClothingList from "@/components/clothingList"
 
 export default function ClothingPage() {
   return (
-    <main className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Clothing Store</h1>
+    <main className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6 text-center">Clothing Store</h1>
       <ClothingList />
     </main>
-  );
+  )
 }
+
