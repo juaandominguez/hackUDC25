@@ -7,6 +7,7 @@ import { promisify } from "util";
 const execPromise = promisify(exec);
 
 import { createClient } from "@/utils/supabase/server";
+import { makeAuthenticatedRequest } from "@/utils/tokenManager";
 
 export async function GET(req: NextApiRequest, res: NextApiResponse) {
   const supabase = await createClient();
@@ -19,15 +20,8 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_URL}/api/vision?imageUrl=${imageURL}`
-    );
-
-    if (!response.ok) {
-      throw new Error("Query failed");
-    }
-
-    const data = await response.json();
+    const url = `${process.env.PUBLIC_INDITEX_URL}/pubvsearch/products`;
+    const data = await makeAuthenticatedRequest(url, 'GET', `image=${imageURL}`);
 
     console.log(data);
 
@@ -101,6 +95,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 
     return NextResponse.json(photos);
   } catch (error) {
-    console.error("Error uploading image:", error);
+    console.error("Error getting recommendations:", error);
+    return NextResponse.json({ error: "Failed to get recommendations" }, { status: 500 });
   }
 }
