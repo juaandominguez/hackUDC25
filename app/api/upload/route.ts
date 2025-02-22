@@ -31,6 +31,44 @@ export async function POST(request: NextRequest) {
         };
 
         const uploadResult = await s3.upload(params).promise();
+
+ 
+
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/vision?imageUrl=${uploadResult.Location}`, {
+
+            })
+            
+            if (!response.ok) {
+                throw new Error('Query failed')
+            }
+            
+            const data = await response.json()
+            console.log('Upload successful:', data)
+
+            const productLinks = data.map((product: { link: string }) => product.link);
+
+            const photos = await Promise.all(
+                productLinks.map(async (url: any) => {
+                    console.log(url)
+                    const scrapeResponse = await fetch(
+                        `${process.env.NEXT_PUBLIC_URL}/api/scrape?url=${encodeURIComponent(url)}`
+                    );
+        
+                    if (!scrapeResponse.ok) {
+                        throw new Error(`Failed to scrape ${url}`);
+                    }
+        
+                    return await scrapeResponse.json();
+                })
+            );
+
+            console.log(photos)
+            
+
+        } catch (error) {
+            console.error('Error uploading image:', error)
+        }
         
         return NextResponse.json({
             success: true,

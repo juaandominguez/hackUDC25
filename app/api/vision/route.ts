@@ -3,12 +3,23 @@ import { exec } from "child_process";
 import { promisify } from "util";
 import { NextResponse } from "next/server";
 
+
 const execPromise = promisify(exec);
 
 export async function GET(req: NextApiRequest, res: NextApiResponse) {
-  const imageURL=req.body.imageUrl
+  console.log(req)
+  const { searchParams } = new URL(req.url!, `http://${req.headers.host}`);
+  const imageURL = searchParams.get("imageUrl");
+
+  if(!imageURL) {
+    return NextResponse.json(
+      { message: "bad request" },
+      { status: 400 }
+    );
+    
+  }
   const url =
-    "https://api-sandbox.inditex.com/pubvsearch-sandbox/products?image=";
+    `https://api-sandbox.inditex.com/pubvsearch-sandbox/products?image=${imageURL}`;
   const token = process.env.PUBLIC_INDITEX_TOKEN;
 
   try {
