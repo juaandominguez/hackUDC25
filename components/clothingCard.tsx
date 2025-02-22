@@ -26,9 +26,9 @@ const ClothingCard = ({ item }: { item: ClothingItem }) => {
         <Image
           src={item.image || "/placeholder.jpg"}
           alt={item.name}
-          layout="fill"
-          objectFit="cover"
-          className="rounded-none" // Ensures image corners are square
+          width={640}
+          height={360}
+          className="rounded-none object-cover" // Ensures image corners are square
         />
       </div>
       <CardContent className="p-4 flex-grow">
