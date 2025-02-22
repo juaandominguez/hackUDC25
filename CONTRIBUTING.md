@@ -8,7 +8,6 @@ Thank you for considering contributing to ZaraMatch! Your support and efforts he
 ## 🔍 Before Contributing
 Before you start contributing, please:
 - Check the [Issues](https://github.com/juaandominguez/HackUDC25/issues) section for existing reports or discussions.
-- Look through [Discussions](https://github.com/juaandomingue/HackUDC25/discussions) for ongoing conversations about improvements.
 
 ---
 
