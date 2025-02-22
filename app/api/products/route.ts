@@ -13,7 +13,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
   try {
     // Execute curl request
     const { stdout } = await execPromise(
-      `curl -H "Authorization: Bearer ${token}" -H "Content-Type: application/json" "${url}"`
+      `curl -A Mozilla -H "Authorization: Bearer ${token}" -H "Content-Type: application/json" "${url}"`
     );
 
     // Parse and return JSON response

@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import AWS from 'aws-sdk';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { exec } from "child_process";
+import { promisify } from "util";
+
+const execPromise = promisify(exec);
+
+
 const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -104,7 +110,9 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     // Execute curl request
-   
+    const { stdout } = await execPromise(
+        `curl -A Mozilla -H "Authorization: Bearer ${token}" -H "Content-Type: application/json" "${url}"`
+      );
 
 
     // Parse and return JSON response
