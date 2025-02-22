@@ -18,7 +18,7 @@ const ClothingPage = () => {
       try {
         const response = await fetch("http://localhost:3000/api/products");
         const data = await response.json();
-
+        console.log(data);
         if (Array.isArray(data)) {
           setAllClothes(data);
           setFilteredClothes(data);
