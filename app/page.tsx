@@ -21,9 +21,9 @@ export default function WelcomePage() {
         </div>
 
         <div className="mt-10 flex gap-4 justify-center">
-          <button className="px-6 py-3 bg-black text-white text-lg font-medium uppercase border border-black hover:bg-white hover:text-black transition">
+          <Link href={"/tindress"} className="px-6 py-3 bg-black text-white text-lg font-medium uppercase border border-black hover:bg-white hover:text-black transition">
             TinDress
-          </button>
+          </Link>
           <Link href={"/search"} className="px-6 py-3 bg-black text-white text-lg font-medium uppercase border border-black hover:bg-white hover:text-black transition">
             Find a Match
           </Link>

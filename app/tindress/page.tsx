@@ -5,6 +5,7 @@ import { X, Heart } from 'lucide-react'
 import stub from "@/app/stub.jpg"
 import Image from 'next/image'
 import { createClient } from '@/utils/supabase/client'
+import Navbar from '@/components/components/navbar'
 
 const page = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
@@ -118,60 +119,64 @@ const page = () => {
     }
 
     return (
-        <main className='flex flex-col items-center justify-center gap-y-16 pt-8'>
-            <div className={`relative w-[450px] h-[450px] mb-40 border ${currentIndex >= cards.length && "hidden"}`}>
-                {cards.map((card, index) => (
-                    index >= currentIndex && (
-                        <div 
-                            key={card.id} 
-                            className="absolute"
-                            style={{
-                                transform: `scale(${1 - (index - currentIndex) * 0.05}) translateY(${(index - currentIndex) * -10}px)`,
-                                zIndex: cards.length - index,
-                                opacity: Math.max(1 - (index - currentIndex) * 0.2, 0.7)
-                            }}
-                        >
-                            <TinderCard
-                                ref={element => cardRefs.current[index] = element}
-                                onSwipe={onSwipe}
-                                onCardLeftScreen={() => onCardLeftScreen(card.id)}
-                                preventSwipe={['up', 'down']}
-                                className={`${index === currentIndex ? '' : 'pointer-events-none'}`}
+        <>
+            <Navbar />
+            <main className='flex flex-col items-center justify-center gap-y-16 pt-8'>
+                <div className={`relative w-[400px] h-[400px] mb-40 border ${currentIndex >= cards.length && "hidden"}`}>
+                    {cards.map((card, index) => (
+                        index >= currentIndex && (
+                            <div 
+                                key={card.id} 
+                                className="absolute"
+                                style={{
+                                    transform: `scale(${1 - (index - currentIndex) * 0.05}) translateY(${(index - currentIndex) * -10}px)`,
+                                    zIndex: cards.length - index,
+                                    opacity: Math.max(1 - (index - currentIndex) * 0.2, 0.7)
+                                }}
                             >
-                                <Image
-                                    src={card.imageUrl}
-                                    alt={`Card ${card.id}`}
-                                    width={450}
-                                    height={450}
-                                    className='border border-black'
-                                    style={{ userSelect: 'none' }}
-                                    draggable={false}
-                                />
-                            </TinderCard>
+                                <TinderCard
+                                    ref={element => cardRefs.current[index] = element}
+                                    onSwipe={onSwipe}
+                                    onCardLeftScreen={() => onCardLeftScreen(card.id)}
+                                    preventSwipe={['up', 'down']}
+                                    className={`${index === currentIndex ? '' : 'pointer-events-none'}`}
+                                >
+                                    <Image
+                                        src={card.imageUrl}
+                                        alt={`Card ${card.id}`}
+                                        width={450}
+                                        height={450}
+                                        className='border border-black'
+                                        style={{ userSelect: 'none' }}
+                                        draggable={false}
+                                    />
+                                </TinderCard>
+                            </div>
+                        )
+                    ))}
+                </div>
+                {currentIndex >= cards.length && (
+                        <div className='relative flex text-center border h-[450px] justify-center items-center'>
+                            <p>There are no more clothes</p>
                         </div>
-                    )
-                ))}
-            </div>
-            {currentIndex >= cards.length && (
-                    <div className='relative flex text-center border h-[450px] justify-center items-center'>
-                        <p>There are no more clothes</p>
-                    </div>
-            )}
-            <div className='flex flex-row justify-between w-[450px] px-16 relative z-50'>
-                <button
-                    onClick={() => swipe('left')}
-                    className={`size-24 rounded-full border flex items-center justify-center ${isHated ? 'bg-red-300' : 'hover:bg-red-300'}`}
-                >
-                    <X className='size-8'></X>
-                </button>
-                <button
-                    onClick={() => swipe('right')}
-                    className={`size-24 rounded-full border flex items-center justify-center ${isLiked ? 'bg-green-300' : 'hover:bg-green-300'}`}
-                >
-                    <Heart className='size-8'></Heart>
-                </button>
-            </div>
-        </main>
+                )}
+                <div className='flex flex-row justify-between w-[450px] px-16 relative z-50'>
+                    <button
+                        onClick={() => swipe('left')}
+                        className={`size-24 rounded-full border flex items-center justify-center ${isHated ? 'bg-red-300' : 'hover:bg-red-300'}`}
+                    >
+                        <X className='size-8'></X>
+                    </button>
+                    <button
+                        onClick={() => swipe('right')}
+                        className={`size-24 rounded-full border flex items-center justify-center ${isLiked ? 'bg-green-300' : 'hover:bg-green-300'}`}
+                    >
+                        <Heart className='size-8'></Heart>
+                    </button>
+                </div>
+            </main>
+        </>
+        
     )
 }
 
