@@ -72,17 +72,14 @@ export async function POST(request: NextRequest) {
             );
 
             console.log(photos)
+
+            return NextResponse.json(photos);
             
 
         } catch (error) {
             console.error('Error uploading image:', error)
         }
         
-        return NextResponse.json({
-            success: true,
-            url: uploadResult.Location
-        });
-
     } catch (error) {
         console.error('Upload error:', error);
         return NextResponse.json(
