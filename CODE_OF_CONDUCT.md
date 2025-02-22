@@ -37,8 +37,7 @@ Violations of this Code of Conduct may result in:
 
 ## 📢 Reporting Violations
 If you witness or experience inappropriate behavior, report it via:
-- *Email*: support@zaramatch.com
-- *GitHub Issues*: [Report an Issue](https://github.com/juaandominguez/ZaraMatch/issues)
+- *GitHub Issues*: [Report an Issue]((https://github.com/juaandominguez/HackUDC25/issues))
 
 Reports will be reviewed and addressed promptly while maintaining confidentiality.
 
