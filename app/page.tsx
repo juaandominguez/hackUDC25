@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function WelcomePage() {
   return (
@@ -20,9 +21,9 @@ export default function WelcomePage() {
           <button className="px-6 py-3 bg-black text-white text-lg font-medium uppercase border border-black hover:bg-white hover:text-black transition">
             TinDress
           </button>
-          <button className="px-6 py-3 bg-black text-white text-lg font-medium uppercase border border-black hover:bg-white hover:text-black transition">
+          <Link href={"/search"} className="px-6 py-3 bg-black text-white text-lg font-medium uppercase border border-black hover:bg-white hover:text-black transition">
             Find a Match
-          </button>
+          </Link>
         </div>
       </div>
     </div>

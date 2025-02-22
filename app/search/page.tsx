@@ -51,30 +51,40 @@ const SearchPage = () => {
     }
 
     return (
-        <main className="flex flex-col items-center gap-8 p-8 max-w-2xl mx-auto">
-            {/* Search Bar */}
-            <form onSubmit={handleSearch} className="w-full">
+        <main className="flex flex-col items-center gap-8 p-8 max-w-2xl mx-auto bg-white text-black">
+
+            <h1 className="text-5xl font-bold uppercase tracking-tighter z-10 relative text-center">
+                Find Your Match
+            </h1>
+
+
+            <p className="text-center text-lg mt-4 text-gray-600">
+                Use the text input below to search for clothes using a URL to an image, or upload a photo to find similar clothes.
+            </p>
+
+
+            <form onSubmit={handleSearch} className="w-full mt-6">
                 <div className="relative flex items-center">
                     <input
                         type="text"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="Search for products..."
-                        className="w-full px-4 py-2 pr-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Search for products by image URL"
+                        className="w-full px-6 py-3 border-2 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
                     />
                     <button 
                         type="submit"
-                        className="absolute right-2 p-2 text-gray-500 hover:text-gray-700"
+                        className="absolute right-2 p-2 text-black hover:text-white hover:bg-black transition-all"
                     >
                         <Search className="h-5 w-5" />
                     </button>
                 </div>
             </form>
 
-            {/* Image Upload Section */}
-            <div className="w-full flex flex-col gap-4">
+
+            <div className="w-full flex flex-col gap-4 mt-8">
                 <div 
-                    className="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer"
+                    className="border-2 border-dashed border-black rounded-lg p-8 text-center cursor-pointer"
                     onClick={() => fileInputRef.current?.click()}
                 >
                     <input
@@ -96,9 +106,9 @@ const SearchPage = () => {
                         </div>
                     ) : (
                         <div className="flex flex-col items-center justify-center w-full gap-2">
-                            <Upload className="h-8 w-8 text-gray-500" />
-                            <p className="text-gray-500">
-                                {isUploading ? 'Uploading...' : 'Upload a product image'}
+                            <Upload className="h-8 w-8 text-black" />
+                            <p className="text-black">
+                                {isUploading ? 'Uploading...' : 'Upload a photo to find similar clothes'}
                             </p>
                         </div>
                     )}
@@ -108,7 +118,7 @@ const SearchPage = () => {
                     <button
                         onClick={() => console.log('Submit image for search')}
                         disabled={isUploading}
-                        className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors"
+                        className="w-full py-3 px-6 bg-black text-white rounded-lg hover:bg-white hover:text-black border-2 border-black transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
                     >
                         {isUploading ? 'Processing...' : 'Search with this image'}
                     </button>
