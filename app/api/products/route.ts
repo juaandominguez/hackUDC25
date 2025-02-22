@@ -6,7 +6,8 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
   const url = `${process.env.PUBLIC_INDITEX_URL}/searchpmpa/products`;
   
   try {
-    const data = await makeAuthenticatedRequest(url);
+    const data = await makeAuthenticatedRequest(url,"GET","query=*");
+    console.log(data)
     return NextResponse.json(data);
   } catch (error) {
     console.error("Request failed:", error);

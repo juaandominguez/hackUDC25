@@ -28,7 +28,7 @@ const ClothingCard = ({ item }: { item: ClothingItem }) => {
           alt={item.name}
           width={640}
           height={360}
-          className="rounded-none object-cover" // Ensures image corners are square
+          className="rounded-none object-cover max-h-full" // Ensures image corners are square
         />
       </div>
       <CardContent className="p-4 flex-grow">

@@ -91,7 +91,8 @@ export const makeAuthenticatedRequest = async (endpoint, method = 'GET', query =
   const curlCommand = `curl -s -A "Mozilla/5.0" -X ${method} \
     "${url}" \
     -H "Authorization: Bearer ${token}" \
-    -H "Content-Type: application/json"`;
+    -H "Content-Type: application/json" \
+    -H "User-Agent: postman/1.0" `;
 
   console.log(curlCommand)
 

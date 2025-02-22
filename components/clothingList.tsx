@@ -13,7 +13,7 @@ const ClothingList = () => {
     const fetchClothes = async () => {
       setIsLoading(true)
       try {
-        const response = await fetch("http://localhost:3000/api/products")
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/products`);
         const data = await response.json()
         console.log(data)
 
