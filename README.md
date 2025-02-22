@@ -69,7 +69,7 @@ To run ZaraMatch locally, follow these steps:
 - Limited to Inditex catalog availability.
 - Performance may vary based on API response times.
 
-If you encounter any bugs or issues, please report them in the [Issues](https://github.com/juaandominguez/ZaraMatch/issues) section of the repository.
+If you encounter any bugs or issues, please report them in the [Issues](https://github.com/juaandominguez/HackUDC25/issues)) section of the repository.
 
 ---
 
