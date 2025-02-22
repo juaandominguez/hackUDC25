@@ -12,7 +12,7 @@ Older versions are not supported. Users are encouraged to upgrade to the latest 
 ## 🔍 Reporting a Vulnerability
 If you discover a security vulnerability in ZaraMatch, please report it confidentially to our security team:
 - *Email*: javier.miguel@udc.es
-- *GitHub Security Advisories*: [Report an Advisory](https://github.com/juaandominguez/ZaraMatch/security/advisories)
+- *GitHub Security Advisories*: [Report an Advisory](https://github.com/juaandominguez/HackUDC25/security/advisories)
 
 To help us assess the issue, please include:
 - Affected component and version.
