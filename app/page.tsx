@@ -1,9 +1,12 @@
+import Navbar from '@/components/components/navbar';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function WelcomePage() {
   return (
-    <div className="min-h-screen flex flex-col items-center bg-white text-black">
+    <div>
+      <Navbar/>
+      <div className="min-h-screen flex flex-col items-center bg-white text-black">
       <div className="max-w-2xl text-center relative">
         <h1 className="text-5xl font-bold uppercase tracking-tighter z-10 relative">Welcome to ZaraMatch</h1>
 
@@ -26,6 +29,7 @@ export default function WelcomePage() {
           </Link>
         </div>
       </div>
+    </div>
     </div>
   );
 }
