@@ -9,11 +9,8 @@ import ClothingCard from "@/components/clothingCard";
 
 const ClothingPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
   const [allClothes, setAllClothes] = useState<ClothingItem[]>([]);
   const [filteredClothes, setFilteredClothes] = useState<ClothingItem[]>([]);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Fetch all clothes once
   useEffect(() => {
@@ -41,11 +38,15 @@ const ClothingPage = () => {
   // Handle search by name
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
+  };
+
+  // Add real-time filtering
+  useEffect(() => {
     const filtered = allClothes.filter((item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredClothes(filtered);
-  };
+  }, [searchTerm, allClothes]);
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -74,12 +75,12 @@ const ClothingPage = () => {
         </h2>
         {filteredClothes.length > 0 ? (
           <div className="flex flex-wrap justify-center gap-6">
-            {filteredClothes.map((item) => (
-              <ClothingCard key={item.id} item={item} />
+            {filteredClothes.map((item, index) => (
+              <ClothingCard key={item.id ?? `item-${index}`} item={item} />
             ))}
           </div>
         ) : (
-          <ClothingList />
+          <p>No items found</p>
         )}
       </div>
     </main>
