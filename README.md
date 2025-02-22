@@ -96,7 +96,7 @@ This project is licensed under the *MIT License*. See the [LICENSE](LICENSE.md) 
 ---
 
 ## 👥 Contributors
-- *Juan Domínguez Rodríguez* (@juaadominguez)  
+- *Juan Domínguez Rodríguez* (@juaandominguez)  
 - *Javier Miguel Sánchez* (@javier-miguel)  
 - *Marcos Seco Anderson* (@marcos.seco.anderson)  
 - *Diego Dopazo García* (@DIEGODOPAZO)  
