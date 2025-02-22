@@ -72,7 +72,7 @@ const SearchPage = () => {
             </form>
 
             {/* Image Upload Section */}
-            <div className="w-full">
+            <div className="w-full flex flex-col gap-4">
                 <div 
                     className="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer"
                     onClick={() => fileInputRef.current?.click()}
@@ -103,6 +103,16 @@ const SearchPage = () => {
                         </div>
                     )}
                 </div>
+                
+                {selectedImage && (
+                    <button
+                        onClick={() => console.log('Submit image for search')}
+                        disabled={isUploading}
+                        className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors"
+                    >
+                        {isUploading ? 'Processing...' : 'Search with this image'}
+                    </button>
+                )}
             </div>
         </main>
     )
