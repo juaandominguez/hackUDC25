@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
+import chromium from "@sparticuz/chromium";
 
 export async function GET(req) {
+  let browser;
   try {
     // Obtener la URL de la query
     const { searchParams } = new URL(req.url);
@@ -14,20 +16,16 @@ export async function GET(req) {
       );
     }
 
-    // Iniciar Puppeteer con opciones avanzadas
-    const browser = await puppeteer.launch({
-      headless: "new", // Asegura compatibilidad con últimas versiones
-      args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--disable-blink-features=AutomationControlled", // Oculta Puppeteer
-        "--disable-web-security",
-      ],
+    // Lanzar Puppeteer con configuración optimizada para Vercel
+    browser = await puppeteer.launch({
+      args: chromium.args,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
     });
 
     const page = await browser.newPage();
 
-    // Configurar User-Agent y opciones para evitar detección
+    // Configurar User-Agent para reducir detección
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     );
@@ -38,13 +36,13 @@ export async function GET(req) {
       Object.defineProperty(navigator, "webdriver", { get: () => false });
     });
 
-    // Navegar a la página con mayor tiempo de espera
+    // Navegar a la página con espera para cargar contenido dinámico
     await page.goto(pageUrl, {
-      waitUntil: "domcontentloaded", // Mejor para sitios dinámicos
+      waitUntil: "domcontentloaded",
       timeout: 60000,
     });
 
-    // Esperar a que aparezcan imágenes cargadas con JavaScript
+    // Esperar a que haya imágenes
     await page.waitForSelector("img", { timeout: 15000 });
 
     // Obtener la primera imagen visible
@@ -58,10 +56,7 @@ export async function GET(req) {
       return null;
     });
 
-    await browser.close();
-
     if (!imageUrl) {
-      console.error("No se encontró ninguna imagen");
       return NextResponse.json(
         { error: "No se encontró ninguna imagen" },
         { status: 404 }
@@ -75,5 +70,9 @@ export async function GET(req) {
       { error: "Error al scrapear la imagen" },
       { status: 500 }
     );
+  } finally {
+    if (browser) {
+      await browser.close();
+    }
   }
 }
