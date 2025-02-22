@@ -3,14 +3,14 @@ import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import Navbar from "@/components/components/navbar";
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
+const defaultUrl = process.env.NEXT_PUBLIC_URL
+  ? `https://${process.env.NEXT_PUBLIC_URL}`
   : "http://localhost:3000";
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "HackaUDC",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: "ZaraMatch",
+  description: "Find what fits you best!",
 };
 
 const geistSans = Geist({
@@ -28,7 +28,7 @@ export default function RootLayout({
       <body className="bg-background text-foreground">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
