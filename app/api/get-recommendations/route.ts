@@ -8,6 +8,11 @@ const s3 = new AWS.S3({
     region: 'eu-west-1'
 });
 
+import { exec } from "child_process";
+import { promisify } from "util";
+
+const execPromise = promisify(exec);
+
 export async function POST(request: NextRequest) {
     try {
         const formData = await request.formData();
@@ -104,8 +109,11 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     // Execute curl request
-   
-
+    const { stdout } = await execPromise(
+        `curl -A Mozilla -H "Authorization: Bearer ${token}" -H "Content-Type: application/json" "${url}"`
+      );
+  
+      console.log(stdout)
 
     // Parse and return JSON response
     const data = JSON.parse(stdout);

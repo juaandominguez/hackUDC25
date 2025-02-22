@@ -48,7 +48,7 @@ const page = () => {
         }
         console.log(data)
         if (data.length === 0) {
-            const { error: err } = await supabase.from('products').insert({ user_id: id, liked_urls: ["URL1"] }).eq('user_id', id)
+            const { error: err } = await supabase.from('products').insert({ user_id: id, liked_urls: [cards[currentIndex].url] }).eq('user_id', id)
             if (err) {
                 console.error(err)
                 return
@@ -56,14 +56,14 @@ const page = () => {
             return
         }
         if (!data[0].liked_urls) {
-            const { error: err } = await supabase.from('products').update({ liked_urls: ["URL1"] }).eq('user_id', id)
+            const { error: err } = await supabase.from('products').update({ liked_urls: [cards[currentIndex].url] }).eq('user_id', id)
             if (err) {
                 console.error(err)
                 return
             }
             return
         }
-        const { error: err } = await supabase.from('products').update({ liked_urls: [...(data[0].liked_urls), "URL1"] }).eq('user_id', id)
+        const { error: err } = await supabase.from('products').update({ liked_urls: [...(data[0].liked_urls), cards[currentIndex].url] }).eq('user_id', id)
         if (err) {
             console.error(err)
             return
@@ -82,7 +82,7 @@ const page = () => {
             return
         }
         if (data.length === 0) {
-            const { error: err } = await supabase.from('products').insert({ user_id: id, disliked_urls: ["URL1"] }).eq('user_id', id)
+            const { error: err } = await supabase.from('products').insert({ user_id: id, disliked_urls: [cards[currentIndex].url] }).eq('user_id', id)
             if (err) {
                 console.error(err)
                 return
@@ -90,14 +90,14 @@ const page = () => {
             return
         }
         if (!data[0].disliked_urls) {
-            const { error: err } = await supabase.from('products').update({ user_id: id, disliked_urls: ["URL1"] }).eq('user_id', id)
+            const { error: err } = await supabase.from('products').update({ user_id: id, disliked_urls: [cards[currentIndex].url] }).eq('user_id', id)
             if (err) {
                 console.error(err)
                 return
             }
             return
         }
-        const { error: err } = await supabase.from('products').update({ disliked_urls: [...(data[0].disliked_urls), "URL2"] }).eq('user_id', id)
+        const { error: err } = await supabase.from('products').update({ disliked_urls: [...(data[0].disliked_urls), cards[currentIndex].url] }).eq('user_id', id)
         if (err) {
             console.error(err)
             return

@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
             }
             
             const data = await response.json()
-            console.log('Upload successful:', data)
+    
 
             const productLinks = data.map((product: { link: string }) => product.link);
             // const productLinks = ["https://www.zara.com/es/es/jeans-slim-cropped-fit-p04551402.html?v1=433643651&v2=2443335", "https://www.zara.com/es/es/trench-largo-water-repellent-p04315500.html?v1=425252061&v2=2443335", "https://www.massimodutti.com/es/parka-capucha-mezcla-algodon-l03477514?pelement=45813620", "https://www.massimodutti.com/es/chaqueta-algodon-detalle-cuello-piel-l03483518?pelement=48639308", "https://www.bershka.com/es/camiseta-manga-corta-cropped-c0p175233157.html?colorId=250"]
@@ -71,18 +71,15 @@ export async function POST(request: NextRequest) {
                 })
             );
 
-            console.log(photos)
+            console.log('Photos:',photos)
+
+            return NextResponse.json(photos);
             
 
         } catch (error) {
             console.error('Error uploading image:', error)
         }
         
-        return NextResponse.json({
-            success: true,
-            url: uploadResult.Location
-        });
-
     } catch (error) {
         console.error('Upload error:', error);
         return NextResponse.json(
