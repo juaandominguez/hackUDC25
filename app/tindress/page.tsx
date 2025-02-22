@@ -41,7 +41,8 @@ const Page = () => {
         setIsLiked(true)
         const user = await supabase.auth.getUser()
         const id = user?.data?.user?.id
-        await fetch(`${process.env.NEXT_PUBLIC_URL}/api/get-recommendations?imageUrl=${cards[currentIndex].url}`)
+        fetch(`${process.env.NEXT_PUBLIC_URL}/api/get-recommendations?imageUrl=${cards[currentIndex].url}`)
+        setIsLiked(true)
         const { data, error } = await supabase.from('products').select("liked_urls").eq('user_id', id)
         if (error) {
             console.error(error)
@@ -135,8 +136,8 @@ const Page = () => {
         <>
             <Navbar />
             {cards.length != 0 ? (
-                <main className='flex flex-col items-center justify-center gap-y-16 pt-8'>
-                    <div className={`relative w-[400px] h-[400px] mb-40 ${currentIndex >= cards.length && "hidden"}`}>
+                <main className='flex flex-col items-center justify-center gap-y-16 pt-4'>
+                    <div className={`relative w-[300px] h-[300px] mb-40 ${currentIndex >= cards.length && "hidden"}`}>
                         {cards.map((card, index) => (
                             index >= currentIndex && (
                                 <div
@@ -161,7 +162,7 @@ const Page = () => {
                                             alt={`Card ${card.id}`}
                                             width={450}
                                             height={450}
-                                            className='w-[400px] h-[600px] object-cover'
+                                            className='w-[400px] h-[500px] object-cover'
                                             style={{ userSelect: 'none' }}
                                             draggable={false}
                                             placeholder='blur'

@@ -48,19 +48,23 @@ const ClothingPage = () => {
   return (
     <>
       <Navbar />
-      <main className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold uppercase tracking-tighter text-center">
+          Find new clothes!
+        </h1>
+      <main className="container mx-auto px-4 py-8 bg-white text-black min-h-screen">
+        
         <form onSubmit={(e) => e.preventDefault()} className="w-full flex justify-center mb-6">
-          <div className="relative flex items-center w-full max-w-md border-2 border-black rounded-lg">
+          <div className="relative flex items-center w-full max-w-md border-2 border-black rounded-lg bg-white shadow-md">
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search for clothing by name..."
-              className="w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-0"
+              className="w-full px-4 py-2 bg-white text-black rounded-lg focus:outline-none focus:ring-0"
             />
             <button
               type="submit"
-              className="p-2 text-black hover:bg-black hover:text-white transition"
+              className="p-2 text-black hover:bg-black hover:text-white transition rounded-r-lg"
             >
               <Search className="h-5 w-5" />
             </button>
@@ -76,9 +80,6 @@ const ClothingPage = () => {
 
         {!loading && (
           <div className="mt-10 text-center">
-            <h2 className="text-2xl font-bold mb-4">
-              {filteredClothes.length > 0 ? "Search Results" : "All Products"}
-            </h2>
             {filteredClothes.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
                 {filteredClothes.map((item, index) => (

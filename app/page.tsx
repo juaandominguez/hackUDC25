@@ -28,13 +28,19 @@ export default function WelcomePage() {
               Find a Match
             </Link>
           </div>
-          
-          <div className="mt-4 flex gap-4 justify-center">  
+
+          <div className="mt-4 flex gap-4 justify-center">
             <Link href={"/clothing"} className="px-6 py-3 bg-black text-white text-lg font-medium uppercase border border-black hover:bg-white hover:text-black transition">
               Find Clothes
             </Link>
             <Link href={"/for-you"} className="px-6 py-3 bg-black text-white text-lg font-medium uppercase border border-black hover:bg-white hover:text-black transition">
               For You
+            </Link>
+          </div>
+
+          <div className="mt-4 flex justify-center">
+            <Link href={"/favorites"} className="px-6 py-3 bg-black text-white text-lg font-medium uppercase border border-black hover:bg-white hover:text-black transition">
+              Favorites
             </Link>
           </div>
         </div>

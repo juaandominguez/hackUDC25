@@ -40,9 +40,9 @@ const ClothingCard = ({ item }: { item: ClothingItem }) => {
     )}
   </div>
   <CardContent className="p-4 flex-grow">
-    <h3 className={`uppercase font-semibold truncate ${hasImage ? "text-lg" : "text-2xl"}`}>
+    <p className={`uppercase font-semibold truncate ${hasImage ? "text-lg" : "text-2xl"}`}>
       {item.name}
-    </h3>
+    </p>
     <p className="text-gray-500 mt-2">
       {item.price.value.current} {item.price.currency}
     </p>
