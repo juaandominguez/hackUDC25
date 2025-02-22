@@ -20,19 +20,29 @@ export type ClothingItem = {
 }
 
 const ClothingCard = ({ item }: { item: ClothingItem }) => {
+  const hasImage = Boolean(item.image);
+
   return (
     <Card className="w-64 h-[400px] shadow-lg overflow-hidden flex flex-col border border-black">
-      <div className="relative w-full h-48 bg-gray-200">
-        <Image
-          src={item.image || "/placeholder.jpg"}
-          alt={item.name}
-          width={640}
-          height={360}
-          className="rounded-none object-cover max-h-full" // Ensures image corners are square
-        />
+      <div className="relative w-full h-48 bg-gray-200 flex items-center justify-center">
+        {hasImage ? (
+          <Image
+            src={item.image}
+            alt={item.name}
+            width={640}
+            height={360}
+            className="rounded-none object-cover max-h-full"
+          />
+        ) : (
+          <span className="text-2xl font-bold uppercase text-gray-700 text-center p-4">
+            No Image Available
+          </span>
+        )}
       </div>
       <CardContent className="p-4 flex-grow">
-        <h3 className="text-lg font-semibold truncate uppercase">{item.name}</h3>
+        <h3 className={`uppercase font-semibold truncate ${hasImage ? "text-lg" : "text-2xl"}`}>
+          {item.name}
+        </h3>
         <p className="text-gray-500 mt-2">
           {item.price.value.current} {item.price.currency}
         </p>
@@ -54,5 +64,4 @@ const ClothingCard = ({ item }: { item: ClothingItem }) => {
   )
 }
 
-export default ClothingCard
-
+export default ClothingCard;
