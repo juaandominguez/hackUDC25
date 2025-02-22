@@ -87,8 +87,9 @@ const page = () => {
     //     }
     // }
 
-    const onSwipeRequirementFulfilled = (direction: string) => {
+    const onSwipe = (direction: string) => {
         console.log(direction);
+        setIsHidden(true)
         if (direction === 'right') {
             onSwipeRight()
         } else if (direction === 'left') {
@@ -110,12 +111,10 @@ const page = () => {
         <main className='h-80 gap-y-4 flex flex-col'>
             <TinderCard
                 ref={cardRef}
-                // onSwipe={onSwipe}
-                onSwipeRequirementFulfilled={onSwipeRequirementFulfilled}
+                onSwipe={onSwipe}
+                // onSwipeRequirementFulfilled={onSwipeRequirementFulfilled}
                 onCardLeftScreen={() => onCardLeftScreen('fooBar')}
                 preventSwipe={['up', 'down']}
-                swipeRequirementType='position'
-                swipeThreshold={500}
                 className={`${isHidden ? 'hidden' : 'block'}`}
             >
                 <Image
