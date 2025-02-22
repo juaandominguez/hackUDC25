@@ -118,8 +118,8 @@ const page = () => {
     }
 
     return (
-        <main className='flex flex-col items-center gap-y-8 pt-8'>
-            <div className="relative w-[450px] h-[450px] mb-48">
+        <main className='flex flex-col items-center justify-center gap-y-16 pt-8'>
+            <div className={`relative w-[450px] h-[450px] mb-40 border ${currentIndex >= cards.length && "hidden"}`}>
                 {cards.map((card, index) => (
                     index >= currentIndex && (
                         <div 
@@ -152,6 +152,11 @@ const page = () => {
                     )
                 ))}
             </div>
+            {currentIndex >= cards.length && (
+                    <div className='relative flex text-center border h-[450px] justify-center items-center'>
+                        <p>There are no more clothes</p>
+                    </div>
+            )}
             <div className='flex flex-row justify-between w-[450px] px-16 relative z-50'>
                 <button
                     onClick={() => swipe('left')}
