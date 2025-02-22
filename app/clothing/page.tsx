@@ -53,20 +53,25 @@ const ClothingPage = () => {
       <h1 className="text-3xl font-bold mb-6 text-center">Clothing Store</h1>
 
       {/* Search Bar */}
-      <form onSubmit={handleSearch} className="w-full max-w-2xl mx-auto mb-6">
-        <div className="relative flex items-center">
+      <form onSubmit={handleSearch} className="w-full flex justify-center mb-6">
+        <div className="relative flex items-center w-[400px] border-2 border-black rounded-lg">
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search for clothing by name..."
-            className="w-full px-4 py-2 border-2 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            className="w-full px-4 py-2 rounded-lg focus:outline-none focus:ring-0"
+            style={{ width: "350px" }}
           />
-          <button type="submit" className="absolute right-2 p-2 text-black hover:bg-black hover:text-white transition">
+          <button
+            type="submit"
+            className="p-2 text-black hover:bg-black hover:text-white transition"
+          >
             <Search className="h-5 w-5" />
           </button>
         </div>
       </form>
+
 
       {/* Display Clothing List with Filtered Results */}
       <div className="mt-10">
@@ -80,7 +85,9 @@ const ClothingPage = () => {
             ))}
           </div>
         ) : (
-          <p>No items found</p>
+        <p className="text-lg font-medium text-gray-600 text-center">
+          No items found
+        </p>
         )}
       </div>
     </main>
