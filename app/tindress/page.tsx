@@ -152,6 +152,7 @@ const page = () => {
                                     }}
                                 >
                                     <TinderCard
+                                        // @ts-ignore
                                         ref={element => cardRefs.current[index] = element}
                                         onSwipe={onSwipe}
                                         onCardLeftScreen={() => onCardLeftScreen(card.id)}
