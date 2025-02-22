@@ -1,13 +1,16 @@
 "use client";
+
 import React, { useState, useRef } from "react";
-import { Upload } from "lucide-react";
+import { Upload, Loader2 } from "lucide-react"; // Import loading spinner icon
 import Image from "next/image";
 import Navbar from "@/components/components/navbar";
+import ClothingCard, { ClothingItem } from "@/components/clothingCard";
 
 const SearchPage = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [images, setImages] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [clothingItems, setClothingItems] = useState<ClothingItem[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,8 +24,9 @@ const SearchPage = () => {
     };
     reader.readAsDataURL(file);
 
-    // Prepare for upload
+    // Start upload & scraping
     setIsUploading(true);
+    setLoading(true);
     const formData = new FormData();
     formData.append("file", file);
 
@@ -36,13 +40,13 @@ const SearchPage = () => {
         throw new Error("Upload failed");
       }
 
-      const data = await response.json();
-      console.log("Upload successful:", data);
-      setImages(data); // Set the response images to the state
+      const data: ClothingItem[] = await response.json();
+      setClothingItems(data);
     } catch (error) {
       console.error("Error uploading image:", error);
     } finally {
       setIsUploading(false);
+      setLoading(false);
     }
   };
 
@@ -86,33 +90,35 @@ const SearchPage = () => {
               <div className="flex flex-col items-center justify-center w-full gap-2">
                 <Upload className="h-8 w-8 text-black" />
                 <p className="text-black">
-                  {isUploading
-                    ? "Uploading..."
-                    : "Click to upload a photo"}
+                  {isUploading ? "Uploading..." : "Click to upload a photo"}
                 </p>
               </div>
             )}
           </div>
         </div>
 
-        {/* Display Images */}
-        <div className="w-full grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-8">
-          {images.length > 0 ? (
-            images.map((item: any, index: number) => (
-              <div key={index} className="relative w-full aspect-square bg-gray-200">
-                <Image
-                  src={item.imageUrl}
-                  alt={`Product ${index + 1}`}
-                  fill
-                  sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  className="rounded-md object-cover"
-                />
+        {/* Display Loading Spinner */}
+        {loading && (
+          <div className="flex justify-center items-center w-full col-span-full mt-8">
+            <Loader2 className="h-10 w-10 animate-spin text-gray-500" />
+            <p className="ml-2 text-gray-500 text-lg">Scraping images...</p>
+          </div>
+        )}
+
+        {/* Display Clothing Cards */}
+        <div className="w-full grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-4 mt-8">
+          {clothingItems.length > 0 ? (
+            clothingItems.map((item) => (
+              <div key={item.id} className="flex justify-center">
+                <ClothingCard item={item} />
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-500">
-              No products found. Upload an image to search.
-            </p>
+            !loading && (
+              <p className="text-center text-gray-500 col-span-full">
+                No products found. Upload an image to search.
+              </p>
+            )
           )}
         </div>
       </main>

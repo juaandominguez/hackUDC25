@@ -16,6 +16,7 @@ export type ClothingItem = {
   }
   link: string
   brand: string
+  image: string;
 }
 
 const ClothingCard = ({ item }: { item: ClothingItem }) => {
