@@ -50,7 +50,14 @@ const ClothingPage = () => {
 
   return (
     <main className="container mx-auto px-4 py-8">
+<<<<<<< HEAD
       <h1 className="text-3xl font-bold mb-6 text-center">Clothing Store</h1>
+=======
+      <ClothingList />
+    </main>
+  )
+}
+>>>>>>> 6225dda (fix: improve navbar ui)
 
       {/* Search Bar */}
       <form onSubmit={handleSearch} className="w-full flex justify-center mb-6">
