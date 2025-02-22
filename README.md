@@ -9,6 +9,8 @@ ZaraMatch simplifies product discovery by providing:
 - *Quick product matches*: Instantly browse similar products from Inditex.
 - *Wishlist management*: Save your favorite products for later.
 - *Social sharing*: Easily share product finds with friends.
+- *Tinder-like experience*: Swipe right to like or left to pass on clothing items.
+- *Favorites management*: Easily access and review your liked items.
 
 ---
 
@@ -24,17 +26,20 @@ ZaraMatch is built with modern web technologies for a fast and responsive experi
 To run ZaraMatch locally, follow these steps:
 
 1. Clone the repository:
-   sh
+   ```sh
    git clone https://github.com/yourusername/ZaraMatch.git
    cd ZaraMatch
+   ```
    
 2. Install dependencies:
-   sh
+   ```sh
    npm install
+   ```
    
 3. Start the development server:
-   sh
+   ```sh
    npm run dev
+   ```
    
 4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
@@ -44,6 +49,8 @@ To run ZaraMatch locally, follow these steps:
 - *Upload an image* from your device or capture one using your camera.
 - *ZaraMatch analyzes the image* using the Inditex Visual Search API.
 - *Similar products appear*, allowing you to browse details, prices, and availability.
+- *Swipe right to like* an item or *swipe left to pass* on it.
+- *View your liked items* in your favorites list for easy access.
 - *Save items to your wishlist* or *share them* on social media.
 
 ### 🚀 Features
@@ -52,6 +59,8 @@ To run ZaraMatch locally, follow these steps:
 ✅ Detailed product information  
 ✅ Wishlist for saving favorite items  
 ✅ Social media sharing options  
+✅ Tinder-like functionality for browsing clothing items  
+✅ Favorites management for easy review of liked products  
 
 ---
 
@@ -67,9 +76,9 @@ If you encounter any bugs or issues, please report them in the [Issues](https://
 ## 👨‍💼 Contributing
 Contributions are welcome! To contribute:
 1. Fork the repository.
-2. Create a new branch: git checkout -b feature-branch
-3. Commit changes: git commit -m "Add new feature"
-4. Push to your fork: git push origin feature-branch
+2. Create a new branch: `git checkout -b feature-branch`
+3. Commit changes: `git commit -m "Add new feature"`
+4. Push to your fork: `git push origin feature-branch`
 5. Open a pull request.
 
 ---
@@ -88,10 +97,11 @@ This project is licensed under the *MIT License*. See the [LICENSE](LICENSE) fil
 
 ## 👥 Contributors
 - *Juan Domínguez Rodríguez* (@juaadominguez)  
-- *Javier Miguel Sánchez* (@javier-miguel)
-- *Marcos Seco Anderson* (@marcos.seco.anderson)
-- *Diego Dopazo García* (@DIEGODOPAZO)
+- *Javier Miguel Sánchez* (@javier-miguel)  
+- *Marcos Seco Anderson* (@marcos.seco.anderson)  
+- *Diego Dopazo García* (@DIEGODOPAZO)  
 
 ---
 
-*Happy Shopping with ZaraMatch!* 
+*Happy Shopping with ZaraMatch!*
+
