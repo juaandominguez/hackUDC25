@@ -7,7 +7,7 @@ const execPromise = promisify(exec);
 
 export async function GET(req: NextApiRequest, res: NextApiResponse) {
   const url =
-    "https://api-sandbox.inditex.com/searchpmpa-sandbox/products?query=";
+    `${process.env.PUBLIC_INDITEX_URL}/searchpmpa/products?query=`;
   const token = process.env.PUBLIC_INDITEX_TOKEN;
 
   try {

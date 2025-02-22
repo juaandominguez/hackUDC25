@@ -19,7 +19,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     
   }
   const url =
-    `https://api-sandbox.inditex.com/pubvsearch-sandbox/products?image=${imageURL}`;
+    `${process.env.PUBLIC_INDITEX_URL}/pubvsearch/products?image=${imageURL}`;
   const token = process.env.PUBLIC_INDITEX_TOKEN;
 
   try {

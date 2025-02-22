@@ -99,7 +99,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     
   }
   const url =
-    `${process.env.PUBLIC_INDITEX_URL}/pubvsearch/products?image=${imageURL}`;
+    `${process.env.PUBLIC_INDITEX_URL}?image=${imageURL}`;
   const token = process.env.PUBLIC_INDITEX_TOKEN;
 
   try {

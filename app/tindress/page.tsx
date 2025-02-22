@@ -10,17 +10,32 @@ import Navbar from '@/components/components/navbar'
 const page = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
     // Sample data array - replace with your actual data
-    const [cards] = useState([
-        { id: 1, imageUrl: stub },
-        { id: 2, imageUrl: stub },
-        { id: 3, imageUrl: stub },
-        { id: 4, imageUrl: stub },
-    ])
+    const [cards, setCards] = useState<{id: any, url: any}[]>([])
     const [isLiked, setIsLiked] = useState(false)
     const [isHated, setIsHated] = useState(false)
     const [isHidden, setIsHidden] = useState(false)
     const cardRefs = useRef<any>(cards.map(() => null))
+
     const supabase = createClient()
+
+    useEffect(() => {
+        const fetchTindressData = async () => {
+            const { data, error } = await supabase
+                .from('tindress')
+                .select('id, url')
+            
+            if (error) {
+                console.error('Error fetching tindress data:', error)
+                return
+            }
+
+            if (data) {
+                setCards(data)
+            }
+        }
+
+        fetchTindressData()
+    }, []) 
 
     const onSwipeRight = async () => {
         setIsLiked(true)
@@ -121,8 +136,9 @@ const page = () => {
     return (
         <>
             <Navbar />
-            <main className='flex flex-col items-center justify-center gap-y-16 pt-8'>
-                <div className={`relative w-[400px] h-[400px] mb-40 border ${currentIndex >= cards.length && "hidden"}`}>
+            {cards.length != 0 ? (
+                <main className='flex flex-col items-center justify-center gap-y-16 pt-8'>
+                <div className={`relative w-[400px] h-[400px] mb-40 ${currentIndex >= cards.length && "hidden"}`}>
                     {cards.map((card, index) => (
                         index >= currentIndex && (
                             <div 
@@ -142,13 +158,15 @@ const page = () => {
                                     className={`${index === currentIndex ? '' : 'pointer-events-none'}`}
                                 >
                                     <Image
-                                        src={card.imageUrl}
+                                        src={card.url}
                                         alt={`Card ${card.id}`}
                                         width={450}
                                         height={450}
-                                        className='border border-black'
+                                        className='w-[400px] h-[600px] object-cover'
                                         style={{ userSelect: 'none' }}
                                         draggable={false}
+                                        placeholder='blur'
+                                        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQrJyEkKzI2LywxMzYwNTY0MDY2NTA0Nz9AQDBHTU9NUF1wXXFlSkVKZWj/2wBDARUXFyAeIBogHB4iGiAaICgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                                     />
                                 </TinderCard>
                             </div>
@@ -156,7 +174,7 @@ const page = () => {
                     ))}
                 </div>
                 {currentIndex >= cards.length && (
-                        <div className='relative flex text-center border h-[450px] justify-center items-center'>
+                        <div className='relative flex text-center h-[600px] justify-center items-center'>
                             <p>There are no more clothes</p>
                         </div>
                 )}
@@ -175,6 +193,7 @@ const page = () => {
                     </button>
                 </div>
             </main>
+            ) : (<div>Loading...</div>)}
         </>
         
     )
