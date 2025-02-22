@@ -12,6 +12,66 @@ const s3 = new AWS.S3({
     region: 'eu-west-1'
 });
 
+export async function GET(req: any) {
+    try {
+      // Obtener la URL de la query
+      const { searchParams } = new URL(req.url);
+      const pageUrl = searchParams.get("imageUrl");
+      console.log(pageUrl)
+  
+      if (!pageUrl) {
+        return NextResponse.json({ error: "Falta la URL en la consulta" }, { status: 400 });
+      }
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/vision?imageUrl=${pageUrl}`);
+
+
+      if (!response.ok) {
+        throw new Error('Query failed');
+    }
+
+    const data = await response.json();
+
+    const productLinks = data.map((product: { link: string }) => product.link);
+
+    const products = await Promise.all(
+        productLinks.map(async (url: any) => {
+            const scrapeResponse = await fetch(
+                `${process.env.NEXT_PUBLIC_URL}/api/scrape?url=${encodeURIComponent(url)}`
+            );
+
+            if (!scrapeResponse.ok) {
+                throw new Error(`Failed to scrape ${url}`);
+            }
+
+            return await scrapeResponse.json();
+        })
+    );
+
+    // Format data to match ClothingCard structure
+    const formattedProducts = data.map((product: any, idx: number) => ({
+        id: product.id,
+        name: product.name,
+        price: {
+            currency: product.price?.currency || "USD",
+            value: {
+                current: product.price?.value?.current ?? 0, 
+                original: product.price?.value?.original ?? null
+            }
+        },
+        link: product.link,
+        brand: product.brand,
+        image: products[idx].imageUrl
+    }));
+    
+    console.log(formattedProducts)
+    return NextResponse.json(formattedProducts);
+
+    } catch(error) {
+        return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
+    }
+}
+
 export async function POST(request: NextRequest) {
     try {
         const formData = await request.formData();

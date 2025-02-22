@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { Upload, Loader2 } from "lucide-react"; // Import loading spinner icon
+import { Upload, Loader2, Search } from "lucide-react"; // Import loading spinner icon
 import Image from "next/image";
 import Navbar from "@/components/components/navbar";
 import ClothingCard, { ClothingItem } from "@/components/clothingCard";
@@ -12,6 +12,30 @@ const SearchPage = () => {
   const [loading, setLoading] = useState(false);
   const [clothingItems, setClothingItems] = useState<ClothingItem[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setIsUploading(true);
+    try {
+      console.log(searchTerm);
+      const response = await fetch(`/api/upload?imageUrl=${searchTerm}`);
+
+      if (!response.ok) {
+        throw new Error("Upload failed");
+      }
+
+      const data: ClothingItem[] = await response.json();
+      setClothingItems(data);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    } finally {
+      setIsUploading(false);
+      setLoading(false);
+    }
+    console.log("Searching for:", searchTerm);
+  };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -57,6 +81,24 @@ const SearchPage = () => {
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold uppercase tracking-tighter text-center">
           Find Your Match
         </h1>
+
+        <form onSubmit={handleSearch} className="w-full mt-6">
+          <div className="relative flex items-center">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search for products by image URL"
+              className="w-full px-6 py-3 border-2 border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            />
+            <button
+              type="submit"
+              className="absolute right-2 p-2 text-black hover:text-white hover:bg-black transition-all"
+            >
+              <Search className="h-5 w-5" />
+            </button>
+          </div>
+        </form>
 
         <p className="text-center text-base sm:text-lg mt-2 text-gray-600">
           Upload a photo to find similar clothes.
