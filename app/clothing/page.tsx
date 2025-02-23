@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Search, Loader2 } from "lucide-react";
-import ClothingCard from "@/components/clothingCard";
+import SurpriseCard from "@/components/surpriseCard";
 import Navbar from "@/components/components/navbar";
 import type { ClothingItem } from "@/components/clothingCard";
 
@@ -50,7 +50,7 @@ const ClothingPage = () => {
       <Navbar />
       <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold uppercase tracking-tighter text-center">
           Find new clothes!
-        </h1>
+      </h1>
       <main className="container mx-auto px-4 py-8 bg-white text-black min-h-screen">
         
         <form onSubmit={(e) => e.preventDefault()} className="w-full flex justify-center mb-6">
@@ -83,7 +83,7 @@ const ClothingPage = () => {
             {filteredClothes.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
                 {filteredClothes.map((item, index) => (
-                  <ClothingCard key={item.id ?? `item-${index}`} item={item} />
+                  <SurpriseCard key={item.id ?? `item-${index}`} item={item} />
                 ))}
               </div>
             ) : (
